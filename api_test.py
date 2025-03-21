@@ -7,10 +7,10 @@ API_URL = "http://127.0.0.1:8000/transaction/debit"
 
 ACCOUNT_ID = "40"
 
-NUM_REQUESTS = 20
+NUM_REQUESTS = 200000
 
 
-TRANSACTION_AMOUNT = 2.0
+TRANSACTION_AMOUNT = 0.0
 
 def send_debit_request():
 
@@ -30,7 +30,7 @@ def send_debit_request():
     }
 
 def run_concurrent_requests():
-    with concurrent.futures.ThreadPoolExecutor(max_workers=NUM_REQUESTS) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
         futures = [executor.submit(send_debit_request) for _ in range(NUM_REQUESTS)]
         results = [future.result() for future in concurrent.futures.as_completed(futures)]
 
